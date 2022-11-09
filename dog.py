@@ -1,5 +1,12 @@
 # dog.py
 class Dog:
-  def __init__(self, name):
+  # Required properties are defined inside the __init__ constructor method
+  def __init__(self, name, breed):
     self.name = name
+    self.breed = breed
     print("dog initialized!")
+
+  def bark(self):
+    print("Woof!")
+
+
