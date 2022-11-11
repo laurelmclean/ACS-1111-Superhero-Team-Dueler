@@ -1,6 +1,5 @@
 import random
 
-# hero.py
 class Hero:
 #   default starting health is 100
     def __init__(self, name, starting_health=100):
