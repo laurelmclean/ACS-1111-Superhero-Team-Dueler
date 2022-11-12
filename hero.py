@@ -19,6 +19,9 @@ class Hero:
         # when a hero is created, their current health is
         # always the same as their starting health (no damage taken yet!)
         self.current_health = starting_health
+        # kills and deaths default starting value is zero
+        self.deaths = 0
+        self.kills = 0
 
     # method to allow each hero to attack the other
     def fight(self, opponent):
@@ -37,6 +40,8 @@ class Hero:
                     # if opponent dies, print hero defeats opponent
                     if opponent.is_alive() == False:
                         print(f'{self.name} defeats {opponent.name}')
+                        self.add_kill(1)
+                        opponent.add_death(1)
                         break
                 if len(opponent.abilities) > 0:
                     total_damage = opponent.attack()
@@ -46,6 +51,8 @@ class Hero:
                     # if hero dies, print opponent defeats hero
                     if self.is_alive() == False:
                         print(f'{opponent.name} defeats {self.name}')
+                        opponent.add_kill(1)
+                        self.add_death(1)
         # else, neither hero has abilities and it's a draw
         else:
             print("Draw!")
@@ -95,6 +102,14 @@ class Hero:
             return True
         else:
             return False
+    
+    def add_kill(self, num_kills):
+        # Update self.kills by num_kills amount
+        self.kills += num_kills
+
+    def add_death(self, num_deaths):
+        # Update deaths with num_deaths
+        self.deaths += num_deaths
 
 # This block will only run if this script is called directly.
 # prevents this block from being run when this script is imported by anotther script.
