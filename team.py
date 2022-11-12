@@ -1,8 +1,8 @@
 class Team:
-  def __init__(self, name):
-    # team name and empty list of heroes
-    self.name = name
-    self.heroes = list()
+    def __init__(self, name):
+        # team name and empty list of heroes
+        self.name = name
+        self.heroes = []
 
     def remove_hero(self, name):
     # remove hero from list or return 0 if hero not found
@@ -19,12 +19,12 @@ class Team:
             return 0
 
     def view_all_heroes(self):
-        '''Prints out all heroes to the console.'''
-        # TODO: Loop over the list of heroes and print their names to the terminal one by one.
-        pass
+        # Prints out all heroes to the console.
+        for hero in self.heroes:
+            print(f"Hero name: {hero.name}.")
 
     def add_hero(self, hero):
-        '''Add Hero object to self.heroes.'''
-        # TODO: Add the Hero object that is passed in to the list of heroes in
-        # self.heroes
-        pass
+        self.heroes.append(hero)
+    
+
+

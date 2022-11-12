@@ -5,6 +5,7 @@ import random
 from ability import Ability
 from armor import Armor
 from weapon import Weapon
+from team import Team
 
 class Hero:
 #   default starting health is 100
@@ -162,3 +163,10 @@ if __name__ == "__main__":
     weapon = Weapon("Lasso of Truth", 90)
     hero.add_weapon(weapon)
     print(hero.attack())
+
+if __name__ == "__main__":
+    team = Team("One")
+    jodie = Hero("Jodie Foster")
+    team.add_hero(jodie)
+    assert len(team.heroes) == 1
+    assert team.heroes[0].name == "Jodie Foster"
