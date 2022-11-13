@@ -29,12 +29,12 @@ class Team:
         self.heroes.append(hero)
 
     def stats(self):
-        # Print team statistics'''
+        # Print team statistics
         for hero in self.heroes:
             if hero.deaths == 0:
                 hero.deaths = 1
-            kd = hero.kills / hero.deaths
-            print(f"{hero.name} Kills/Deaths: {kd}")
+            kd = round(hero.kills / hero.deaths, 2)
+            return kd
     
     def revive_heroes(self, health=100):
         # Reset all heroes health to starting_health

@@ -74,34 +74,58 @@ class Arena:
     def show_team_stats(self, team):
         print("\n")
         # display stats
-        print(f"{team.name} statistics: {team.stats()}")
+        print(f"{team.name} Kills/Deaths statistics: {team.stats()}")
         team_kills = 0
         team_deaths = 0
         # calcualte and display average K/D
         for hero in team.heroes:
             team_kills += hero.kills
             team_deaths += hero.deaths
+            kd_total = team_kills / team_deaths
         if team_deaths == 0:
             team_deaths = 1
-        print(f'{team.name} kills: {team_kills} deaths: {team_deaths}')
-        # print survivors
-        if len(team.heroes) == 0:
-            print('No survivors!')
-        else:
-            print('Survivors: ')
-            for hero in team.heroes:
-                if hero.deaths == 0:
-                    print(hero.name)
+        print(f"{team.name} average K/D was: {kd_total}")
+
+    # print survivors
+    def survivors(self, team):
+        survivors = 0
+        for hero in team.heroes:
+            if hero.deaths == 0:
+                survivors += 1
+                print(f"{hero.name} from {team.name} survived the battle.")
+        return survivors
+
 
     # call show stats for team one and team two
     def show_stats(self):
+        self.survivors(self.team_one)
+        self.survivors(self.team_two)
+
         self.show_team_stats(self.team_one)
         self.show_team_stats(self.team_two)
 
 
 if __name__ == "__main__":
+    game_is_running = True
+
+    # Instantiate Game Arena
     arena = Arena()
+
+    # Build Teams
     arena.build_team_one()
     arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+
+    while game_is_running:
+
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again? Y or N: ")
+
+        # Check for Player Input
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            # Revive heroes to play again
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()

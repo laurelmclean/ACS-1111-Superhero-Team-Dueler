@@ -26,40 +26,38 @@ class Hero:
     # method to allow each hero to attack the other
     def fight(self, opponent):
         # if neither hero has abilities and it's a draw
-        if len(self.abilities) == 0 and len(opponent.abilities) == 0:
-            print('Draw!')
-            return
-        # else either hero has abilitis, they will fight
+        if (len(self.abilities) == 0) and (len(opponent.abilities) == 0):
+            print("Draw!")
         else:
-            #  while loop will continue attack as long as both are alive
-            while self.is_alive() == True and opponent.is_alive() == True:
-                # if hero has abilities
-                if len(self.abilities) > 0:
-                    total_damage = self.attack()
-                    # if opponent has armor
-                    if len(opponent.armors) > 0:
-                        total_damage -= opponent.defend()
-                        # damage they take is total minus defense
-                    opponent.take_damage(total_damage)
-                    # if opponent dies, print hero defeats opponent
-                    if opponent.is_alive() == False:
-                        print(f'{self.name} defeats {opponent.name}')
-                        self.add_kill(1)
-                        opponent.add_death(1)
-                        break
-                if len(opponent.abilities) > 0:
-                    total_damage = opponent.attack()
-                    if len(self.armors) > 0:
-                        total_damage -= self.defend()
-                    self.take_damage(total_damage)
-                    # if hero dies, print opponent defeats hero
-                    if self.is_alive() == False:
-                        print(f'{opponent.name} defeats {self.name}')
-                        opponent.add_kill(1)
-                        self.add_death(1)
+            fighting = True
+            while fighting == True:
+                attack_damage = self.attack()
+                opponent_attack_damage = opponent.attack()
+                self.take_damage(opponent_attack_damage)
+                opponent.take_damage(attack_damage)
+
+                if self.is_alive() == False and opponent.is_alive() == False:
+                    print(f"Both heroes perished in battle!")
+                    # add kills and deaths for both
+                    self.add_kill(1)
+                    self.add_death(1)
+                    opponent.add_kill(1)
+                    opponent.add_death(1)
+                    break
+                # if opponent defeats hero
+                elif self.is_alive() == False and opponent.is_alive() == True:
+                    print(
+                        f"{opponent.name} defeats {self.name}!")
+                    self.add_death(1)
+                    opponent.add_kill(1)
+                    break
+                # if hero defeats opponent
+                elif self.is_alive() == True and opponent.is_alive() == False:
+                    print(f"{self.name} defeats {opponent.name}!")
+                    self.add_kill(1)
+                    opponent.add_death(1)
+                    break
         
-
-
     def add_ability(self, ability):
         #add ability objects to list.
         self.abilities.append(ability)
@@ -96,7 +94,10 @@ class Hero:
         # Updates self.current_health to reflect the damage minus the defense.
         attack_damage = damage - self.defend()
         self.current_health -= attack_damage
-        print(f"{self.name} Took {attack_damage} damage!")
+        if self.current_health > 0:
+            print(f"{self.name} took {attack_damage} damage and has {self.current_health} health remaining!")
+        elif self.current_health <= 0:
+            print(f"{self.name} took {attack_damage} damage and has perished in the battle!")
         return self.current_health
 
     def is_alive(self):
