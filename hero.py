@@ -25,8 +25,12 @@ class Hero:
 
     # method to allow each hero to attack the other
     def fight(self, opponent):
-        # if either hero has abilitis, they will fight
-        if len(self.abilities) >= 1 or len(opponent.abilities) >= 1:
+        # if neither hero has abilities and it's a draw
+        if len(self.abilities) == 0 and len(opponent.abilities) == 0:
+            print('Draw!')
+            return
+        # else either hero has abilitis, they will fight
+        else:
             #  while loop will continue attack as long as both are alive
             while self.is_alive() == True and opponent.is_alive() == True:
                 # if hero has abilities
@@ -53,9 +57,7 @@ class Hero:
                         print(f'{opponent.name} defeats {self.name}')
                         opponent.add_kill(1)
                         self.add_death(1)
-        # else, neither hero has abilities and it's a draw
-        else:
-            print("Draw!")
+        
 
 
     def add_ability(self, ability):
@@ -110,78 +112,3 @@ class Hero:
     def add_death(self, num_deaths):
         # Update deaths with num_deaths
         self.deaths += num_deaths
-
-# This block will only run if this script is called directly.
-# prevents this block from being run when this script is imported by anotther script.
-# if __name__ == "__main__":
-#     hero1 = Hero("Wonder Woman", 200)
-#     hero2 = Hero("Dumbledore", 20)
-
-#     hero1.fight(hero2)
-
-# if __name__ == "__main__":
-#     # If you run this file from the terminal
-#     # this block of code is executed.
-#     ability = Ability("Great Debugging", 50)
-#     another_ability = Ability("Smarty Pants", 90)
-#     armor = Armor("shield", 10)
-#     armor2 = Armor("guard", 30)
-#     hero = Hero("Grace Hopper", 200)
-#     hero.add_ability(ability)
-#     hero.add_ability(another_ability)
-#     hero.add_armor(armor)
-#     hero.add_armor(armor2)
-#     print(hero.attack())
-#     print(hero.defend())
-
-# if __name__ == "__main__":
-#     # If you run this file from the terminal
-#     # this block of code is executed.
-
-#     hero = Hero("Grace Hopper", 200)
-#     shield = Armor("Shield", 50)
-#     hero.add_armor(shield)
-#     hero.take_damage(50)
-#     hero.defend()
-#     print(hero.current_health)
-
-# if __name__ == "__main__":
-#     # If you run this file from the terminal
-#     # this block is executed.
-
-#     hero = Hero("Grace Hopper", 200)
-#     hero.take_damage(150)
-#     print(hero.is_alive())
-#     hero.take_damage(15000)
-#     print(hero.is_alive())
-
-# if __name__ == "__main__":
-#     # If you run this file from the terminal
-#     # this block is executed.
-
-#     hero1 = Hero("Wonder Woman")
-#     hero2 = Hero("Dumbledore")
-#     ability1 = Ability("Super Speed", 300)
-#     ability2 = Ability("Super Eyes", 130)
-#     ability3 = Ability("Wizard Wand", 80)
-#     ability4 = Ability("Wizard Beard", 20)
-#     hero1.add_ability(ability1)
-#     hero1.add_ability(ability2)
-#     hero2.add_ability(ability3)
-#     hero2.add_ability(ability4)
-#     hero1.fight(hero2)
-
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-    hero = Hero("Wonder Woman")
-    weapon = Weapon("Lasso of Truth", 90)
-    hero.add_weapon(weapon)
-    print(hero.attack())
-
-if __name__ == "__main__":
-    team = Team("One")
-    jodie = Hero("Jodie Foster")
-    team.add_hero(jodie)
-    assert len(team.heroes) == 1
-    assert team.heroes[0].name == "Jodie Foster"
