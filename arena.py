@@ -57,14 +57,14 @@ class Arena:
 
     def build_team_one(self):
         # Prompt the user to build team_one 
-        numOfTeamMembers = int(input("How many members would you like on Team One?\n"))
-        for i in range(numOfTeamMembers):
+        num_of_members  = int(input("How many members would you like on Team One?\n"))
+        for i in range(num_of_members):
             hero = self.create_hero()
             self.team_one.add_hero(hero)
 
     def build_team_two(self):
-        numOfTeamMembers = int(input("How many members would you like on Team Two?\n"))
-        for i in range(numOfTeamMembers):
+        num_of_members = int(input("How many members would you like on Team Two?\n"))
+        for i in range(num_of_members):
             hero = self.create_hero()
             self.team_two.add_hero(hero)
 
@@ -72,9 +72,6 @@ class Arena:
         self.team_one.attack(self.team_two)
 
     def show_team_stats(self, team):
-        print("\n")
-        # display stats
-        print(f"{team.name} Kills/Deaths statistics: {team.stats()}")
         team_kills = 0
         team_deaths = 0
         # calcualte and display average K/D
@@ -92,17 +89,33 @@ class Arena:
         for hero in team.heroes:
             if hero.deaths == 0:
                 survivors += 1
+                print("\n")
                 print(f"{hero.name} from {team.name} survived the battle.")
         return survivors
 
 
     # call show stats for team one and team two
     def show_stats(self):
-        self.survivors(self.team_one)
-        self.survivors(self.team_two)
+        team_one_survivors = self.survivors(self.team_one)
+        team_two_survivors = self.survivors(self.team_two)
 
+        if team_one_survivors > team_two_survivors:
+            print("\n")
+            print(f"Team One wins the battle!")
+        else:
+            print("\n")
+            print(f"Team Two wins the battle!")
+
+        print("\n")
+        print(f"Team One final stats:")
+        self.team_one.stats()
         self.show_team_stats(self.team_one)
+
+        print("\n")
+        print(f"Team Two final stats:")
+        self.team_two.stats()
         self.show_team_stats(self.team_two)
+        print("\n")
 
 
 if __name__ == "__main__":

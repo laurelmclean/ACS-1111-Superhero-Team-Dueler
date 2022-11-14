@@ -1,4 +1,6 @@
 import random
+from ability import Ability
+from hero import Hero
 
 class Team:
     def __init__(self, name):
@@ -34,12 +36,12 @@ class Team:
             if hero.deaths == 0:
                 hero.deaths = 1
             kd = round(hero.kills / hero.deaths, 2)
-            return kd
+            print(f"{hero.name} Kill/Death Ratio: {kd}")
     
     def revive_heroes(self, health=100):
         # Reset all heroes health to starting_health
         for hero in self.heroes:
-            hero.current_health = hero.starting_health
+            hero.current_health = health
             print(f"{hero.name} health has been revived!")
 
     def attack(self, other_team):
@@ -53,13 +55,19 @@ class Team:
 
         for hero in other_team.heroes:
             living_opponents.append(hero)
-
-        while len(living_heroes) > 0 and len(living_opponents)> 0:
-            hero1 = random.choice(living_heroes)
-            hero2 = random.choice(living_opponents)
-            hero1.fight(hero2)
-            if hero1.is_alive() == False:
-                living_heroes.remove(hero1)
-            if hero2.is_alive() == False:
-                living_opponents.remove(hero2)
+        
+        
+        else:
+            while len(living_heroes) > 0 and len(living_opponents)> 0:
+                hero1 = random.choice(living_heroes)
+                hero2 = random.choice(living_opponents)
+                if (len(hero1.abilities) == 0) and (len(hero2.abilities) == 0):
+                    print("Draw!")
+                    break
+                else:
+                    hero1.fight(hero2)
+                    if hero1.is_alive() == False:
+                        living_heroes.remove(hero1)
+                    if hero2.is_alive() == False:
+                        living_opponents.remove(hero2)
 
