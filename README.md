@@ -4,4 +4,4 @@ This is a Python program that teams superheroes up for battle in this introducti
 
 ## Usage
 
-Run `python3 hero.py`
+Run `python3 arena.py`
